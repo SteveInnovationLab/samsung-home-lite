@@ -1,0 +1,9 @@
+{
+  "name": "samsung-home-lite",
+  "version": "0.1.0",
+  "packageType": "app",
+  "appName": "Home Lite (Plex + Prime)",
+  "description": "Lightweight English-language Samsung TV launcher with local app launch helper for older Tizen TVs.",
+  "appPath": "index.html",
+  "serviceFile": "service.js"
+}
