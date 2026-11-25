@@ -1,5 +1,5 @@
 'use strict';
-// Home Lite TV 0.4.1 — TV-only helper. No shell access, credentials, or file access.
+// Home Lite 0.3 — TV-only helper. No shell access, credentials, or file access.
 // Samsung app IDs are routed to the TV's own HTTP API. The service does not
 // accept arbitrary URLs or IP addresses from the browser.
 var http = require('http');
@@ -86,7 +86,7 @@ function readBody(req, cb) {
 var server = http.createServer(function (req, res) {
   var path = (req.url || '').split('?')[0];
   if (req.method === 'OPTIONS') return reply(res, 200, {ok: true});
-  if (req.method === 'GET' && path === '/health') return reply(res, 200, {ok: true, version: '0.4.1'});
+  if (req.method === 'GET' && path === '/health') return reply(res, 200, {ok: true, version: '0.3'});
   if (req.method !== 'POST') return reply(res, 404, {ok: false, error: 'Not found'});
   var match = /^\/launch\/([a-z]+)$/.exec(path);
   if (!match) return reply(res, 404, {ok: false, error: 'Not found'});
@@ -109,4 +109,4 @@ var server = http.createServer(function (req, res) {
   });
 });
 server.on('error', function(e) {console.log('[Home Lite] Helper error: ' + e.message);});
-server.listen(PORT, '127.0.0.1', function() {console.log('[Home Lite TV] v0.4.1 listening on localhost:' + PORT);});
+server.listen(PORT, '127.0.0.1', function() {console.log('[Home Lite] v0.3 listening on localhost:' + PORT);});
