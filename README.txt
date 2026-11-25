@@ -1,6 +1,7 @@
-HOME LITE TV v0.4 -- SteveInnovationLab -- EXPERIMENTAL TV BUILD
+HOME LITE TV v0.4.1 -- SteveInnovationLab -- EXPERIMENTAL TV BUILD
 
 WHAT CHANGED
+- Return on the home screen and the Return to TizenBrew tile now request browser-history navigation; if no prior history exists, attempt to exit the host app. Real TV behavior still needs testing.
 - New dark blue TV dashboard, original house/play logo and glowing focus.
 - Selected app banner, four-column scrollable shortcuts, no marketing tagline.
 - Optional Plex Library tile opens the separate v0.4 Plex Preview gateway at a locally entered private IPv4 address; no token or personal IP in this repository. It does not embed movie data or play media. This optional link still depends on the unresolved TV-to-PC network connection and may require reopening TizenBrew to return.
@@ -35,13 +36,13 @@ INSTALL (AFTER YOU HAVE CONFIRMED THE v0.3 BUILD WORKS)
 2. On GitHub open https://github.com/SteveInnovationLab/samsung-home-lite
 3. Upload and REPLACE index.html, package.json, service.js together (README.txt optional).
    Use the GitHub web interface: Add file -> Upload files -> Commit changes.
-4. Restart TizenBrew fully, then start Home Lite. Look for '0.4' near Home Lite TV.
+4. Restart TizenBrew fully, then start Home Lite. Look for '0.4.1' near Home Lite TV.
    GitHub/jsDelivr caching can mean you see the old version for a while.
 5. Test Plex and Prime Video FIRST. If those still work, test Tubi and
    the other shortcuts. Apps not installed are expected to fail gracefully.
 
 REMOTE
-Home: Left/Right/Up/Down move between tiles, OK launches.
+Home: Left/Right/Up/Down move between tiles, OK launches; Return requests TizenBrew history navigation.
 Manage Apps: Up/Down selects row, OK hide/show or select action,
   Left/Right reorders selected item, Back saves/exits.
   Red remote button deletes a CUSTOM shortcut only.
