@@ -1,9 +1,9 @@
 {
   "name": "samsung-home-lite",
-  "version": "0.3.0",
+  "version": "0.4.2",
   "packageType": "app",
-  "appName": "Home Lite",
-  "description": "Minimal TizenBrew home launcher with customizable shortcuts for Samsung Tizen TVs.",
+  "appName": "Home Lite TV",
+  "description": "TV-first TizenBrew launcher with customizable app shortcuts and an optional local Plex dashboard link.",
   "appPath": "index.html",
   "serviceFile": "service.js"
 }
