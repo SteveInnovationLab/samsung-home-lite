@@ -1,371 +1,71 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Home Lite TV</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home Lite</title>
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,'SamsungOne',sans-serif;color:#f6f8fc;background:#0b1320}
-body{background:radial-gradient(ellipse at 60% -10%,#324761 0%,#132133 44%,#0b1320 82%)}
-#top{position:absolute;left:5vw;right:5vw;top:5.7vh;height:8vh}
-#brand{font-weight:700;font-size:2.4vw;letter-spacing:-.03em}
-#version{font-size:.85vw;color:#91a7bc;margin-left:1vw;vertical-align:middle;font-weight:400;letter-spacing:.06em}
-#time{position:absolute;right:0;top:.2vh;font-size:2.4vw;font-weight:300;color:#dfebf4}
-#sectionLabel{position:absolute;top:16.5vh;left:5vw;font-size:1.35vw;color:#a2b6c8;letter-spacing:.05em}
-#tileArea{position:absolute;left:5vw;right:4vw;top:22vh;height:62vh;overflow:hidden}
-.tile{display:inline-block;vertical-align:top;width:20.6vw;height:17.8vh;margin-right:1.45vw;margin-bottom:2.5vh;background:rgba(255,255,255,.085);border:3px solid transparent;border-radius:1.25vw;text-align:left;position:relative;overflow:hidden}
-.tile.focus{border-color:#f4f8ff;background:rgba(255,255,255,.21);box-shadow:0 0 0 .1vw rgba(255,255,255,.1)}
-.tile .symbol{font-size:3.2vw;font-weight:700;line-height:1;margin:2.4vh 0 0 1.8vw;color:#fff;letter-spacing:-.05em}
-.tile .symbol.small{font-size:2.45vw;letter-spacing:-.03em}
-.tile .title{position:absolute;left:1.8vw;bottom:1.5vh;font-size:1.45vw;font-weight:600}
-.tile .sub{position:absolute;left:1.8vw;bottom:1.5vh;font-size:.95vw;color:#a8bbcc;display:none}
-.tile.focus .title{bottom:3.8vh}
-.tile.focus .sub{display:block}
-.tile.plex{background-color:rgba(190,135,34,.16)}
-.tile.prime{background-color:rgba(35,115,177,.16)}
-.tile.tubi{background-color:rgba(229,110,31,.13)}
-.tile.netflix{background-color:rgba(161,41,53,.14)}
-.tile.pluto{background-color:rgba(95,65,173,.18)}
-.tile.tvplus{background-color:rgba(31,135,159,.17)}
-.tile.manage{background-color:rgba(182,194,211,.12)}
-#bottom{position:absolute;left:5vw;right:5vw;bottom:4vh;min-height:4vh;font-size:1.17vw;color:#b4c5d4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#bottom.error{color:#ffc38b}
-#manageScreen,#addScreen{display:none;position:absolute;left:0;top:0;width:100%;height:100%;background:#0e1827;padding:5vh 5vw;z-index:10}
-#manageTitle,#addTitle,#plexTitle{font-size:3.25vw;font-weight:500;margin:0 0 1vh}
-#manageHint,#addHint{font-size:1.22vw;color:#afc1d1;margin-bottom:3vh}
-#list{position:relative;height:69vh;overflow:hidden}
-.entry{width:100%;height:6.9vh;line-height:6.9vh;border-radius:.7vw;border:2px solid transparent;padding:0 1.25vw;margin-bottom:.4vh;color:#e8f0f7;font-size:1.35vw;white-space:nowrap}
-.entry.focus{border-color:#fff;background:rgba(255,255,255,.15)}
-.entry .number{display:inline-block;width:3.5vw;color:#8caac1}
-.entry .state{float:right;font-size:1.1vw;color:#b1d4ba}
-.entry .state.off{color:#a8abb2}
-.entry.action{color:#d2e9ff}
-#manageFooter,#addFooter{position:absolute;left:5vw;bottom:3.5vh;font-size:1.05vw;color:#afc1d1}
-#addFields{margin-top:6vh;width:78vw}
-.fieldLabel{display:block;color:#b5c7d9;font-size:1.25vw;margin:2.5vh 0 1vh}
-.formField{display:block;width:70%;height:7.5vh;font-size:1.8vw;color:#fff;background:#283b52;border:2px solid #52657a;border-radius:.7vw;padding:.8vw;outline:none}
-.formField:focus{border-color:#fff}
-.actionButton{margin-top:4vh;margin-right:1.2vw;min-width:12vw;height:6.8vh;font-size:1.4vw;border-radius:.6vw;border:2px solid #93adbf;color:#fff;background:#2b4864}
-.actionButton:focus{border-color:#fff;background:#467498}
-#addFeedback{color:#ffd19a;font-size:1.2vw;margin-top:2vh}
-
-/* v0.4: TV-first dashboard, using conservative CSS for older Tizen engines. */
-body{background:radial-gradient(ellipse at 80% 0%,#123c63 0%,#091a30 45%,#050e1c 85%)}
-#top{left:4vw;right:4vw;top:3.2vh;height:9vh;border-bottom:1px solid #254460}
-#brand{display:inline-block;font-size:2.8vw;line-height:7vh;vertical-align:middle;color:#f4f9ff;letter-spacing:-.045em}
-#brand em{font-style:normal;color:#40d6ff;text-shadow:0 0 20px #1387bc}
-#logo{display:inline-block;width:4.2vw;height:6.6vh;vertical-align:middle;margin-right:.8vw;filter:drop-shadow(0 0 7px #0a8ad1)}
-#version{font-size:.83vw;color:#87a6c3;margin-left:1.1vw}
-#time{font-size:1.8vw;top:1.8vh;color:#dceafa}
-#hero{position:absolute;left:4vw;right:4vw;top:14vh;height:25vh;border:1px solid #315b7b;border-radius:1.2vw;overflow:hidden;background:linear-gradient(110deg,#0b2039,#153957 70%,#0c2745);box-shadow:0 8px 22px rgba(0,0,0,.25)}
-#hero:after{content:'';position:absolute;right:-7vw;top:-30vh;width:49vw;height:55vh;border-radius:50%;border:2px solid rgba(61,202,255,.26);box-shadow:0 0 40px rgba(22,145,255,.16);pointer-events:none}
-#heroCopy{position:absolute;left:2.7vw;top:3.7vh;right:24vw;z-index:1}
-#heroEyebrow{font-size:.92vw;letter-spacing:.17em;color:#8bdfff;font-weight:bold}
-#heroTitle{font-size:3.5vw;font-weight:700;letter-spacing:-.045em;margin-top:1.2vh;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#heroHint{font-size:1.28vw;color:#c5dbed;margin-top:1.1vh}
-#heroAction{font-size:1.05vw;color:#83e7ff;margin-top:1.4vh}
-#heroMark{position:absolute;right:5vw;top:4vh;width:17vw;height:17vh;text-align:center;line-height:17vh;font-size:5.5vw;font-weight:bold;color:#e7f6ff;text-shadow:0 0 32px rgba(53,195,255,.7);border:1px solid #356585;border-radius:1.5vw;background:rgba(4,20,38,.4);z-index:1;overflow:hidden}
-#sectionLabel{left:4vw;top:42vh;font-size:1.45vw;color:#eef6ff;font-weight:bold;letter-spacing:0}
-#position{position:absolute;right:4vw;top:42.2vh;font-size:1vw;color:#9ab5cd}
-#tileArea{left:4vw;right:4vw;top:47vh;height:45vh;padding:.8vh .5vw 1vh;overflow:hidden}
-.tile{width:21.2vw;height:12.8vh;margin-right:1.35vw;margin-bottom:1.7vh;border:2px solid #294a68;border-radius:.85vw;background:linear-gradient(135deg,#17314d,#10243a);transition:background .12s,border-color .12s}
-.tile.focus{border-color:#45dfff;background:linear-gradient(135deg,#125e91,#103754);box-shadow:0 0 12px rgba(30,192,255,.55),inset 0 0 12px rgba(35,177,239,.15)}
-.tile .symbol{font-size:2.4vw;margin:1.4vh 0 0 1.25vw;color:#f2f7ff}
-.tile .symbol.small{font-size:1.95vw}
-.tile .title,.tile .sub{left:1.25vw;right:.5vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tile .title{font-size:1.3vw;bottom:1.5vh}
-.tile.focus .title{bottom:2.9vh}
-.tile .sub{font-size:.82vw;bottom:.9vh;color:#c2e4f7}
-.tile.plex .symbol{color:#ffc44a}.tile.netflix .symbol{color:#ff5362}.tile.prime .symbol{color:#65caff}.tile.tubi .symbol{color:#ffb269}.tile.pluto .symbol{color:#d6aaff}
-#bottom{left:4vw;right:4vw;bottom:1.5vh;font-size:1.02vw;min-height:2.3vh}
-#manageScreen,#addScreen,#plexScreen{background:radial-gradient(ellipse at 80% 0%,#153958,#091a30 65%);}
-.entry.focus,.formField:focus,.actionButton:focus{border-color:#4de0ff;box-shadow:0 0 10px rgba(44,185,255,.3)}
-#plexScreen{display:none;position:absolute;left:0;top:0;width:100%;height:100%;padding:6vh 5vw;z-index:10}
-#plexScreen p{font-size:1.35vw;color:#bad0e2;max-width:76vw;line-height:1.5}
-#plexFeedback{color:#ffd19a;font-size:1.2vw;margin-top:2vh}
-
+* { box-sizing:border-box; }
+html,body {width:100%;height:100%;margin:0;overflow:hidden;background:#101827;color:#fff;font-family:Arial,'SamsungOne',sans-serif;}
+body {background:radial-gradient(ellipse at 68% 14%,#3b536b 0%,#17273a 35%,#0b1420 70%,#090d16 100%);}
+#header {position:absolute;left:6vw;top:6vh;right:6vw;}
+#brand {font-size:1.4vw;font-weight:bold;letter-spacing:.25em;color:#b2c5d5;text-transform:uppercase;}
+#time {position:absolute;right:0;top:0;font-size:2.3vw;color:#dfebf5;}
+h1 {font-weight:400;font-size:5.8vw;margin:10vh 0 1vh;letter-spacing:-.035em;}
+p {font-size:1.55vw;color:#b3c4d0;margin:0;}
+#tiles {position:absolute;left:6vw;right:6vw;top:49%;display:flex;justify-content:flex-start;align-items:center;}
+.tile {position:relative;width:23vw;height:19vh;margin-right:2vw;background:rgba(255,255,255,.11);border:3px solid rgba(255,255,255,.06);border-radius:1.3vw;text-align:center;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:background .15s,border .15s,transform .15s;}
+.tile.focus {background:rgba(255,255,255,.22);border-color:#fff;transform:scale(1.045);}
+.logo {font-size:4vw;line-height:1;font-weight:bold;margin-bottom:1.5vh;}
+.name {font-size:1.65vw;letter-spacing:.01em;}
+#status {position:absolute;left:6vw;right:6vw;bottom:8vh;font-size:1.5vw;color:#bfd0dd;min-height:2em;}
+#help {position:absolute;left:6vw;right:6vw;bottom:3vh;font-size:1vw;color:#8ca0b1;}
 </style>
 </head>
 <body>
-<div id="top"><svg id="logo" viewBox="0 0 64 64" aria-hidden="true"><path d="M5 29L32 6 59 29M12 25V54H52V25" fill="none" stroke="#45dfff" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round"/><rect x="20" y="27" width="25" height="19" rx="3" fill="none" stroke="#45dfff" stroke-width="2.5"/><path d="M29 30L38 36 29 42Z" fill="#45dfff"/></svg><span id="brand">Home <em>Lite</em> TV</span><span id="version">0.4.2</span><span id="time"></span></div>
-<div id="hero"><div id="heroCopy"><div id="heroEyebrow">SELECTED APP</div><div id="heroTitle"></div><div id="heroHint"></div><div id="heroAction">Press OK to open</div></div><div id="heroMark"></div></div>
-<div id="sectionLabel">Your Apps</div><div id="position"></div>
-<div id="tileArea" aria-label="Home screen app shortcuts"></div>
-<div id="bottom" aria-live="polite">Use the arrow keys to choose an app. Press OK to open. Return: menu or close TizenBrew.</div>
-<section id="manageScreen" aria-label="Manage apps">
-  <div id="manageTitle">Manage Apps</div>
-  <div id="manageHint">OK: show or hide &nbsp; • &nbsp; Left / Right: change order &nbsp; • &nbsp; Back: save and return</div>
-  <div id="list"></div>
-  <div id="manageFooter">Changes save on this television. &nbsp; Add App lets you create a new shortcut without updating GitHub.</div>
-</section>
-<section id="addScreen" aria-label="Add a Samsung app">
-  <div id="addTitle">Add App</div>
-  <div id="addHint">Enter a name and Samsung application ID. The app must already be installed to launch.</div>
-  <div id="addFields">
-    <label class="fieldLabel" for="customName">App name</label>
-    <input class="formField" id="customName" maxlength="45" autocomplete="off" placeholder="e.g. Disney+">
-    <label class="fieldLabel" for="customId">Samsung application ID</label>
-    <input class="formField" id="customId" maxlength="120" autocomplete="off" placeholder="e.g. 3201901017640">
-    <button id="saveButton" class="actionButton">Save shortcut</button>
-    <button id="cancelButton" class="actionButton">Cancel</button>
-    <div id="addFeedback" aria-live="polite"></div>
-  </div>
-  <div id="addFooter">Use the TV's on-screen keyboard to type. &nbsp; Back: cancel.</div>
-</section>
-<section id="plexScreen" aria-label="Optional Plex dashboard">
-  <div id="plexTitle">Plex Library</div>
-  <p>Optional local dashboard. Enter the IPv4 address of the PC running the Home Lite TV gateway. No Plex token is needed here.</p>
-  <label class="fieldLabel" for="gatewayIP">Gateway PC address</label>
-  <input class="formField" id="gatewayIP" maxlength="15" autocomplete="off" placeholder="192.168.x.x">
-  <button id="openGateway" class="actionButton">Open dashboard</button><button id="cancelGateway" class="actionButton">Back</button>
-  <p>Requires the separate gateway on your trusted network. Opens its preview in this view; the separate page may require closing and reopening TizenBrew to return. Native Plex still works independently.</p>
-  <div id="plexFeedback" aria-live="polite"></div>
-</section>
+<div id="header"><div id="brand">HOME LITE &middot; 0.4.3</div><div id="time"></div><h1>Your TV. Your apps.</h1><p>Simple. Fast. No sponsored home tiles.</p></div>
+<div id="tiles">
+  <div class="tile focus" data-app="plex"><div class="logo">P</div><div class="name">Plex</div></div>
+  <div class="tile" data-app="prime"><div class="logo">▶</div><div class="name">Prime Video</div></div>
+  <div class="tile" data-app="tizentube"><div class="logo">▷</div><div class="name">TizenTube</div></div>
+</div>
+<div id="status" aria-live="polite">Choose an app and press OK.</div>
+<div id="help">← → Move &nbsp; • &nbsp; OK Open &nbsp; • &nbsp; Back Return to TizenBrew</div>
 <script>
-(function(){
-'use strict';
-var STORAGE='steve-home-lite-apps-v03'; // retain existing preferences
-var GATEWAY_STORAGE='home-lite-gateway-ip';
-var DEFAULTS=[
-  {key:'plex',name:'Plex',symbol:'plex',hint:'Open your media in Plex',type:'tv',visible:true},
-  {key:'prime',name:'Prime Video',symbol:'prime',hint:'Movies & series',type:'tv',visible:true},
-  {key:'tizentube',name:'TizenTube',symbol:'▷',hint:'YouTube through TizenBrew',type:'module',module:'tizentube',visible:true},
-  {key:'tubi',name:'Tubi',symbol:'tubi',hint:'Install from Samsung Apps first',type:'tv',visible:true},
-  {key:'netflix',name:'Netflix',symbol:'NETFLIX',hint:'Install from Samsung Apps first',type:'tv',visible:true},
-  {key:'pluto',name:'Pluto TV',symbol:'pluto',hint:'Install from Samsung Apps first',type:'tv',visible:true},
-  {key:'tvplus',name:'Samsung TV Plus',symbol:'TV+',hint:'Built-in TV channels',type:'tv',visible:true},
-  {key:'store',name:'Samsung Apps',symbol:'▦',hint:'App marketplace',type:'tv',visible:true},
-  {key:'media',name:'Media Player',symbol:'▶',hint:'Network Explorer / VLC-style player',type:'module',module:'network-explorer',visible:true}
-];
-function clone(o){return JSON.parse(JSON.stringify(o));}
-function safeText(s){return String(s==null?'':s).slice(0,80);}
-var apps=clone(DEFAULTS), screen='home', focus=0, manageFocus=0;
-var tiles=document.getElementById('tileArea'), list=document.getElementById('list');
-function load(){
-  try{var raw=JSON.parse(localStorage.getItem(STORAGE)); if(!raw || !Array.isArray(raw) || !raw.length || raw.length>60)return;
-    var used={};var valid=[];
-    for(var i=0;i<raw.length;i++){
-      var a=raw[i]; if(!a||typeof a.key!=='string'||used[a.key]||typeof a.name!=='string'||a.name.length>45)continue;
-      if(a.type!=='tv'&&a.type!=='module'&&a.type!=='custom')continue;
-      if(a.type==='custom'&&!/^[A-Za-z0-9][A-Za-z0-9._-]{1,119}$/.test(a.appId||''))continue;
-      if(a.type!=='custom'&&!findDefault(a.key))continue;
-      used[a.key]=1;valid.push(a.type==='custom'?{key:a.key,name:a.name,symbol:safeText(a.symbol||a.name[0]),hint:'Custom Samsung app',type:'custom',appId:a.appId,visible:a.visible!==false}:(function(){var d=clone(findDefault(a.key));d.visible=a.visible!==false;return d;})());
-    }
-    for(var j=0;j<DEFAULTS.length;j++)if(!used[DEFAULTS[j].key])valid.push(clone(DEFAULTS[j]));
-    apps=valid;
-  }catch(e){}
-}
-function findDefault(key){for(var i=0;i<DEFAULTS.length;i++)if(DEFAULTS[i].key===key)return DEFAULTS[i];return null;}
-function save(){try{localStorage.setItem(STORAGE,JSON.stringify(apps));return true;}catch(e){status('TV cannot save settings to local storage. Changes may not persist.',true);return false;}}
-function status(message,isError){var el=document.getElementById('bottom');el.textContent=message;el.className=isError?'error':'';}
-function homeItems(){var out=[];for(var i=0;i<apps.length;i++)if(apps[i].visible)out.push(apps[i]);out.push({key:'plexlibrary',name:'Plex Library',symbol:'▤',hint:'Optional local dashboard',type:'gateway'});out.push({key:'manage',name:'Manage Apps',symbol:'⚙',hint:'Show, hide, reorder, add',type:'manage'});out.push({key:'exit',name:'Return to TizenBrew',symbol:'←',hint:'Return to menu or close TizenBrew',type:'exit'});return out;}
-function makeEl(tag,cls,text){var el=document.createElement(tag);if(cls)el.className=cls;if(text!=null)el.textContent=text;return el;}
-function showHome(){
-  screen='home';document.getElementById('plexScreen').style.display='none';document.getElementById('manageScreen').style.display='none';document.getElementById('addScreen').style.display='none';
-  var oldScroll=tiles.scrollTop;tiles.textContent='';var items=homeItems();if(focus>=items.length)focus=items.length-1;
-  for(var i=0;i<items.length;i++){
-    var a=items[i], t=makeEl('div','tile '+a.key+(i===focus?' focus':''));
-    t.appendChild(makeEl('div','symbol'+(a.symbol.length>2?' small':''),a.symbol));
-    t.appendChild(makeEl('div','title',a.name));t.appendChild(makeEl('div','sub',a.hint));
-    t.setAttribute('data-index',i);t.onclick=(function(n){return function(){focus=n;showHome();openSelected();};})(i);
-    tiles.appendChild(t);
-  }
-  var selected=items[focus];
-  document.getElementById('heroTitle').textContent=selected.name;
-  document.getElementById('heroHint').textContent=selected.hint;
-  document.getElementById('heroMark').textContent=selected.symbol;
-  document.getElementById('position').textContent=(focus+1)+' / '+items.length;
-  tiles.scrollTop=oldScroll;
-  var target=tiles.children[focus];if(target){var top=target.offsetTop,bottom=top+target.offsetHeight;if(bottom>tiles.scrollTop+tiles.clientHeight-5)tiles.scrollTop=bottom-tiles.clientHeight+8;else if(top<tiles.scrollTop)tiles.scrollTop=Math.max(0,top-5);}
-} 
-function showManage(){
-  screen='manage';document.getElementById('manageScreen').style.display='block';document.getElementById('addScreen').style.display='none';
-  if(manageFocus>apps.length+1)manageFocus=apps.length+1;
-  list.textContent='';
-  for(var i=0;i<apps.length+2;i++){
-    var row=makeEl('div','entry'+(i===manageFocus?' focus':'')+(i>=apps.length?' action':''));
-    var n=i<apps.length?apps[i]:null;
-    row.appendChild(makeEl('span','number',i<apps.length?((i<9?'0':'')+(i+1)):'•'));
-    row.appendChild(makeEl('span','',n?n.name:(i===apps.length?'+ Add App':'← Return to Home')));
-    var state=makeEl('span','state'+(n&&!n.visible?' off':''),n?(n.visible?'VISIBLE':'HIDDEN'):'');row.appendChild(state);
-    row.onclick=(function(index){return function(){manageFocus=index;showManage();manageOK();};})(i);
-    list.appendChild(row);
-  }
-  keepVisible();
-}
-function keepVisible(){var rows=list.children;if(rows[manageFocus]){
-  var target=rows[manageFocus];var top=target.offsetTop;var bottom=top+target.offsetHeight;
-  if(bottom>list.scrollTop+list.clientHeight)list.scrollTop=bottom-list.clientHeight+6;
-  else if(top<list.scrollTop)list.scrollTop=top;
-}}
-function manageOK(){
-  if(manageFocus===apps.length){showAdd();return;}
-  if(manageFocus===apps.length+1){showHome();status('Changes saved.');return;}
-  apps[manageFocus].visible=!apps[manageFocus].visible;save();showManage();
-}
-function moveApp(dir){if(manageFocus>=apps.length)return;
-  var n=manageFocus+dir;if(n<0||n>=apps.length)return;
-  var item=apps[manageFocus];apps[manageFocus]=apps[n];apps[n]=item;manageFocus=n;save();showManage();
-}
-function removeCustom(){if(manageFocus>=apps.length||apps[manageFocus].type!=='custom')return;
-  var name=apps[manageFocus].name;apps.splice(manageFocus,1);if(manageFocus>=apps.length)manageFocus=apps.length-1;save();showManage();status('Removed custom shortcut: '+name);
-}
-function showAdd(){screen='add';document.getElementById('manageScreen').style.display='none';document.getElementById('addScreen').style.display='block';document.getElementById('customName').value='';document.getElementById('customId').value='';document.getElementById('addFeedback').textContent='';document.getElementById('customName').focus();}
-function addNew(){
-  var name=document.getElementById('customName').value.replace(/^\s+|\s+$/g,'').slice(0,45);
-  var id=document.getElementById('customId').value.replace(/^\s+|\s+$/g,'');
-  if(!name){document.getElementById('addFeedback').textContent='Enter the app name.';return;}
-  if(!/^[A-Za-z0-9][A-Za-z0-9._-]{1,119}$/.test(id)){document.getElementById('addFeedback').textContent='Enter a valid Samsung application ID, not a URL.';return;}
-  for(var i=0;i<apps.length;i++)if(apps[i].type==='custom'&&apps[i].appId===id){document.getElementById('addFeedback').textContent='This ID already has a shortcut.';return;}
-  var key='custom_'+(new Date().getTime().toString(36));apps.push({key:key,name:name,symbol:name.slice(0,1).toUpperCase(),hint:'Custom Samsung app',type:'custom',appId:id,visible:true});
-  save();manageFocus=apps.length-1;showManage();status('Added '+name+'. It will launch after the app is installed.');
-}
-document.getElementById('saveButton').onclick=addNew;
-document.getElementById('cancelButton').onclick=showManage;
-// Tizen application IDs differ from Smart Hub HTTP catalog IDs.
-var NATIVE_IDS={plex:['kIciSQlYEM.plex','hKfNDgSKZ3.tizenplex'],prime:['evKhCgZelL.AmazonIgnitionLauncher2'],tubi:['3KA0pm7a7V.TubiTV'],netflix:['org.tizen.netflix-app','org.tizen.netflixlowmem'],tvplus:['com.samsung.tv.tvPlusDeeplinker'],store:['com.samsung.tv.store','org.volt.apps']};
-var NATIVE_NAMES={plex:['plex','plex for samsung'],prime:['prime video','amazon prime video'],tubi:['tubi','tubi free movies tv'],netflix:['netflix'],pluto:['pluto tv'],tvplus:['samsung tv plus'],store:['apps','samsung apps']};
-function normName(value){return String(value||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').replace(/^ +| +$/g,'');}
-function errorLabel(e){return String(e&&(e.name||e.message)||e||'unknown error').slice(0,50);}
-var launching=false;
-function launchTv(a){
-  if(launching)return;
-  launching=true;
-  status('Opening '+a.name+' using native Tizen...');
-  var manager=window.tizen&&window.tizen.application;
-  var known=a.type==='custom'?[a.appId]:(NATIVE_IDS[a.key]||[]);
-  var errors=[],ids=[],finished=false, timer;
-  function fallback(reason){if(finished)return;finished=true;clearTimeout(timer);launching=false;launchHttp(a,reason);}
-  function success(id){if(finished)return;finished=true;clearTimeout(timer);launching=false;status('Native launch accepted: '+a.name+' ('+id+')');}
-  if(!manager||typeof manager.launch!=='function'){fallback('API unavailable');return;}
-  function candidates(list){
-    if(finished)return;
-    clearTimeout(timer);
-    var names=NATIVE_NAMES[a.key]||[normName(a.name)];
-    function add(id){if(typeof id==='string'&&id&&ids.indexOf(id)<0)ids.push(id);}
-    if(a.type!=='custom') (list||[]).forEach(function(info){if(names.indexOf(normName(info.name))!==-1)add(info.id);});
-    known.forEach(add);
-    var pos=0;
-    function next(){
-      if(finished)return;
-      if(pos>=ids.length){fallback(errors.length?errors[errors.length-1]:'no native app ID found');return;}
-      var id=ids[pos++], settled=false;
-      function attempt(useControl){
-        if(finished||settled)return;
-        var called=false;
-        function ok(){if(called||settled||finished)return;called=true;settled=true;success(id);}
-        function fail(e){if(called||settled||finished)return;called=true;clearTimeout(timer);errors.push(errorLabel(e)+' '+id);if(!useControl&&typeof manager.launchAppControl==='function'&&typeof window.tizen.ApplicationControl==='function'){attempt(true);}else{settled=true;next();}}
-        // A missing callback is ambiguous: do not launch another app on a timeout.
-        timer=setTimeout(function(){if(called||finished)return;called=true;settled=true;finished=true;launching=false;status('Native launch did not report a result for '+a.name+'. Try Samsung Home to check.',true);},3500);
-        try{if(useControl){manager.launchAppControl(new window.tizen.ApplicationControl('http://tizen.org/appcontrol/operation/default'),id,ok,fail);}else{manager.launch(id,ok,fail);}}catch(e){fail(e);}
+(function () {
+  var tiles = document.querySelectorAll('.tile'), focus = 0;
+  function status(msg) { document.getElementById('status').textContent = msg; }
+  function redraw() { for (var i=0;i<tiles.length;i++) tiles[i].className = 'tile' + (i===focus ? ' focus' : ''); }
+  function clock() { var d = new Date(); document.getElementById('time').textContent = d.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'}); }
+  function openNativeModule() {
+    if (!window.tizen || !tizen.application || !tizen.application.getAppsInfo) { status('Tizen app API is unavailable.'); return; }
+    tizen.application.getAppsInfo(function (apps) {
+      var app = null;
+      for (var i = 0; i < apps.length; i++) {
+        if (/tizentube/i.test(apps[i].name || '') || /tizentube/i.test(apps[i].id || '')) { app=apps[i]; break; }
       }
-      attempt(false);
-    }
-    next();
+      if (!app) {status('TizenTube app not found. Open it from TizenBrew.');return;}
+      tizen.application.launch(app.id,function(){},function(e){status('TizenTube launch blocked: ' + (e && e.message ? e.message : 'TV rejected request'));});
+    },function(){status('Could not read apps.');});
   }
-  var gotList=false;
-  function useList(list){if(gotList||finished)return;gotList=true;candidates(list);}
-  if(a.type==='custom'||typeof manager.getAppsInfo!=='function'){useList([]);return;}
-  timer=setTimeout(function(){useList([]);},1200);
-  try{manager.getAppsInfo(useList,function(){useList([]);});}catch(e){useList([]);}
-}
-
-function launchHttp(a,nativeError){
-  status('Trying Samsung HTTP fallback for '+a.name+'...');
-  var url='http://127.0.0.1:47822/launch/'+(a.type==='custom'?'custom':a.key);
-  var opts={method:'POST'};
-  if(a.type==='custom'){opts.body=JSON.stringify({ids:[a.appId]});}
-  fetch(url,opts).then(function(r){return r.json().then(function(data){if(!r.ok||!data.ok)throw new Error(data.error||'Launch failed');return data;});})
-  .then(function(){status('Launch request accepted for '+a.name+'.');})
-  .catch(function(e){
-    var guide=(a.key==='store')?'Press Samsung Home, then open Apps.':(a.key==='tvplus'?'Press Samsung Home and select Samsung TV Plus.':'Check whether the app is installed on this TV.');
-    status(a.name+' failed: native '+safeText(nativeError)+'; HTTP '+safeText(e.message)+'. '+guide,true);
+  function openCurrent() {
+    var app=tiles[focus].getAttribute('data-app');
+    if (app==='tizentube') { status('Opening TizenTube...'); openNativeModule(); return; }
+    status('Opening ' + (app==='prime' ? 'Prime Video' : 'Plex') + '...');
+    // The TizenBrew service forwards this request from the TV to its own app API.
+    fetch('http://127.0.0.1:47822/launch/' + app, {method:'POST'})
+      .then(function(r){return r.json().then(function(j){if(!r.ok||!j.ok)throw new Error(j.error||('HTTP '+r.status));return j;});})
+      .then(function(){ status('Launch request accepted.'); })
+      .catch(function(e){ status('Launch helper unavailable: '+e.message+'. Try reopening the module.'); });
+  }
+  document.addEventListener('keydown',function(e){
+    var k=e.keyCode;
+    if (k===37) {focus=Math.max(0,focus-1);redraw();e.preventDefault();}
+    else if (k===39) {focus=Math.min(tiles.length-1,focus+1);redraw();e.preventDefault();}
+    else if (k===13) {openCurrent();e.preventDefault();}
   });
-}
-// TizenBrew's module service is separate from the Samsung native app launcher.
-function launchModule(a){
-  status('Opening '+a.name+'...');
-  if(!window.WebSocket){status('TizenBrew module service unavailable.',true);return;}
-  var ws, done=false;var timeout=setTimeout(function(){fail('TizenBrew did not respond.');},6500);
-  function fail(msg){if(done)return;done=true;clearTimeout(timeout);status(msg,true);try{if(ws)ws.close();}catch(e){}}
-  try{ws=new WebSocket('ws://127.0.0.1:8081');}catch(e){fail('Cannot reach TizenBrew.');return;}
-  ws.onopen=function(){ws.send(JSON.stringify({type:4}));};
-  ws.onmessage=function(event){
-    var data;try{data=JSON.parse(event.data);}catch(e){return;}
-    if(done||data.type!==4||!Array.isArray(data.payload))return;
-    var modules=data.payload, mod=null;
-    for(var i=0;i<modules.length;i++){
-      var m=modules[i], label=String(m.fullName||m.name||'').toLowerCase();
-      if(a.module==='tizentube' && (label.indexOf('tizentube')!==-1)) {mod=m;break;}
-      if(a.module==='network-explorer' && (label.indexOf('network-explorer')!==-1||label.indexOf('network_explorer')!==-1)) {mod=m;break;}
-    }
-    if(!mod){fail(a.module==='network-explorer'?'Install the Network Explorer TizenBrew module first.':'TizenTube is not registered in TizenBrew.');return;}
-    try{ws.send(JSON.stringify({type:5,payload:mod}));}catch(e){fail('TizenBrew rejected the launch.');return;}
-    done=true;clearTimeout(timeout);status('Sent launch command to TizenBrew.');
-    var redirect=(!mod.evaluateScriptOnDocumentStart && mod.appPath)?mod.appPath:'';
-    setTimeout(function(){try{ws.close();}catch(e){}if(redirect)location.href=redirect;},250);
-  };
-  ws.onerror=function(){fail('TizenBrew module service did not connect.');};
-  ws.onclose=function(){if(!done)fail('TizenBrew closed the connection.');};
-}
-function showGateway(){screen='gateway';document.getElementById('plexScreen').style.display='block';var input=document.getElementById('gatewayIP');try{input.value=localStorage.getItem(GATEWAY_STORAGE)||'';}catch(e){}document.getElementById('plexFeedback').textContent='';input.focus();}
-function openGateway(){var ip=document.getElementById('gatewayIP').value.replace(/^\s+|\s+$/g,'');var parts=ip.split('.'),n=parts.map(Number);var valid=parts.length===4&&parts.every(function(p,i){return /^(0|[1-9][0-9]{0,2})$/.test(p)&&n[i]<=255;})&&(n[0]===10||(n[0]===172&&n[1]>=16&&n[1]<=31)||(n[0]===192&&n[1]===168));if(!valid){document.getElementById('plexFeedback').textContent='Enter a private IPv4 address (no URL or port).';return;}try{localStorage.setItem(GATEWAY_STORAGE,ip);}catch(e){}window.location.href='http://'+ip+':8765/';}
-document.getElementById('openGateway').onclick=openGateway;
-document.getElementById('cancelGateway').onclick=showHome;
-function openSelected(){var items=homeItems();var a=items[focus];if(!a)return;
-  if(a.type==='manage'){manageFocus=0;showManage();return;}
-  if(a.type==='gateway'){showGateway();return;}
-  if(a.type==='exit'){returnToBrew();return;}
-  if(a.type==='module')launchModule(a);else launchTv(a);
-}
-function returnToBrew(){
-  status('Returning to TizenBrew...');
-  // Only use a known packaged TizenBrew entry point, not arbitrary referrers.
-  function exitHost(){
-    try{var manager=window.tizen&&window.tizen.application;if(manager&&typeof manager.getCurrentApplication==='function'){manager.getCurrentApplication().exit();return;}}catch(e){status('Exit failed: '+errorLabel(e)+'. Hold Return to close, then reopen TizenBrew.',true);return;}
-    status('Native exit unavailable. Hold Return to close, then reopen TizenBrew.',true);
-  }
-  var ref=String(document.referrer||'');
-  if(/^file:\/\/[^?#]+\/tizenbrew-ui\/dist\/index\.html(?:[?#].*)?$/.test(ref)){
-    setTimeout(exitHost,1800);
-    try{window.location.replace(ref);return;}catch(e){}
-  }
-  // Do not rely on history.length: DevTools navigation may replace the entry.
-  exitHost();
-}
-function back(){if(screen==='gateway'){showHome();return;}if(screen==='add'){showManage();return;}if(screen==='manage'){showHome();status('Changes saved.');return;}returnToBrew();}
-function clock(){document.getElementById('time').textContent=new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});}
-function key(e){var k=e.keyCode||e.which;
-  if(screen==='gateway'){
-    if(k===10009||k===27||k===65385){back();e.preventDefault();return;}
-    if(k===38||k===40||k===37||k===39){var controls=[document.getElementById('gatewayIP'),document.getElementById('openGateway'),document.getElementById('cancelGateway')];var idx=controls.indexOf(document.activeElement);if((k===37||k===39)&&idx===0)return;controls[Math.max(0,Math.min(2,idx+(k===38||k===37?-1:1)))].focus();e.preventDefault();}return;
-  }
-  if(screen==='add'){
-    if(k===10009||k===27||k===65385){back();e.preventDefault();}
-    return;
-  }
-  if(k===10009||k===27||k===65385||k===8){back();e.preventDefault();return;}
-  if(screen==='manage'){
-    if(k===38){manageFocus=Math.max(0,manageFocus-1);showManage();e.preventDefault();}
-    else if(k===40){manageFocus=Math.min(apps.length+1,manageFocus+1);showManage();e.preventDefault();}
-    else if(k===37){moveApp(-1);e.preventDefault();}
-    else if(k===39){moveApp(1);e.preventDefault();}
-    else if(k===13){manageOK();e.preventDefault();}
-    else if(k===403){removeCustom();e.preventDefault();}
-    return;
-  }
-  var count=homeItems().length;
-  if(k===37){focus=Math.max(0,focus-1);showHome();e.preventDefault();}
-  else if(k===39){focus=Math.min(count-1,focus+1);showHome();e.preventDefault();}
-  else if(k===38){focus=Math.max(0,focus-4);showHome();e.preventDefault();}
-  else if(k===40){focus=Math.min(count-1,focus+4);showHome();e.preventDefault();}
-  else if(k===13){openSelected();e.preventDefault();}
-  else if(k===403){manageFocus=0;showManage();e.preventDefault();}
-}
-document.addEventListener('keydown',key);
-load();showHome();clock();setInterval(clock,30000);
-status(window.tizen&&window.tizen.application&&typeof window.tizen.application.launch==='function'?'Native Tizen launch API detected. Select Plex or Prime Video.':'Native API unavailable here; HTTP fallback will be used.');
+  for(var i=0;i<tiles.length;i++)(function(n){tiles[n].addEventListener('click',function(){focus=n;redraw();openCurrent();});})(i);
+  clock();setInterval(clock,30000);
+  fetch('http://127.0.0.1:47822/health').then(function(r){if(!r.ok)throw new Error('offline');}).catch(function(){status('Helper service is not running; Plex and Prime shortcuts may not work.');});
 })();
 </script>
 </body>
